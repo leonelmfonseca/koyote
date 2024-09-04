@@ -21,17 +21,13 @@ import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.client.http.HttpResponseInterceptor;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
-import com.google.api.services.gmail.model.Label;
-import com.google.api.services.gmail.model.ListLabelsResponse;
 import com.google.api.services.gmail.model.ListMessagesResponse;
 import com.google.api.services.gmail.model.Message;
 import com.koyote.gather.config.GmailProperties;
@@ -110,13 +106,10 @@ public class GmailQuickstart {
         // Build a new authorized API client service.
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 
-        HttpRequestInitializer initializer = new HttpRequestInitializer() {
-            @Override
-            public void initialize(HttpRequest request) throws IOException {
-                getCredentials(HTTP_TRANSPORT).initialize(request);
-                request.setLoggingEnabled(true);
-                request.setResponseInterceptor(response -> System.out.println("Response received with status code: " + response.getStatusCode()));
-            }
+        HttpRequestInitializer initializer = request -> {
+            getCredentials(HTTP_TRANSPORT).initialize(request);
+            request.setLoggingEnabled(true);
+            request.setResponseInterceptor(response -> System.out.println("Response received with status code: " + response.getStatusCode()));
         };
 
 

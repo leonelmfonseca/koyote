@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 public class ResultController {
 
-    private GmailQuickstart gmailQuickstart;
+    private final GmailQuickstart gmailQuickstart;
     @Autowired
     public ResultController(GmailQuickstart gmailQuickstart) {
         this.gmailQuickstart = gmailQuickstart;
