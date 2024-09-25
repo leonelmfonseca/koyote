@@ -1,6 +1,10 @@
 package com.koyote.gather.controller;
 
-import com.koyote.gather.service.GmailQuickstart;
+import com.koyote.gather.client.ApiClient;
+import com.koyote.gather.dto.GatherDTO;
+import com.koyote.gather.model.GatherModel;
+import com.koyote.gather.service.GatherService;
+import com.koyote.gather.service.GatherServiceManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,20 +17,16 @@ import java.util.List;
 @RestController
 public class ResultController {
 
-    private final GmailQuickstart gmailQuickstart;
+
+    private final GatherServiceManager gatherServiceManager;
     @Autowired
-    public ResultController(GmailQuickstart gmailQuickstart) {
-        this.gmailQuickstart = gmailQuickstart;
+    public ResultController( GatherServiceManager gatherServiceManager) {
+        this.gatherServiceManager = gatherServiceManager;
     }
 
-    @GetMapping("/results")
+    @GetMapping("/results/")
     List<String> search(@RequestParam String search) throws GeneralSecurityException, IOException {
-
-
-        return gmailQuickstart.getMessages();
-
+        List<GatherModel> results = gatherServiceManager.gatherDataFromEnabledServices(search);
+        return results.stream().map(String::valueOf).toList();
     }
-
-
-
 }
