@@ -1,0 +1,12 @@
+package com.koyote.kollie.model;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@EqualsAndHashCode(callSuper = true)
+@Data
+@NoArgsConstructor
+public class BoomarkingModel extends KollieModel{
+    private String name;
+}

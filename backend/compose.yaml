@@ -1,0 +1,6 @@
+app:
+  build:
+    context: ./Kollie  # Path to your Java project
+    # dockerfile: Dockerfile
+  ports:
+    - "8080:8080"  # Map port 8080 on the host to port 8080 in the container
