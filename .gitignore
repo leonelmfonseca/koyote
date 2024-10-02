@@ -102,6 +102,7 @@ Thumbs.db
 *.properties
 !application.properties
 !application-dev.properties
+env.properties
 
 # Compiled output
 /dist
@@ -129,6 +130,3 @@ docker-compose.override.yml
 *.tfstate
 *.tfstate.*
 .terraform/
-
-# Confidential
-env.properties
